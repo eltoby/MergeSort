@@ -14,38 +14,31 @@
 
         public void Sort(int[] nums, int left, int right)
         {
-            if (right <= left)
+            if (left >= right)
                 return;
 
-            var pivot = this.GetPartition(nums, left, right);
-
-            if (pivot > 1)
-                this.Sort(nums, left, pivot - 1);
-
-            if (pivot + 1 < right)
-                this.Sort(nums, pivot + 1, right);
+                var p = this.GetPartition(nums, left, right);
+                this.Sort(nums, left, p - 1);
+                this.Sort(nums, p + 1, right);
         }
 
         private int GetPartition(int[] nums, int left, int right)
         {
-            var pivot = nums[left];
+            var i = left;
+            var pivot = nums[right];
 
-            while (true)
+            for (var j = left; j < right; j++)
             {
-                while (nums[left] < pivot)
-                    left++;
-
-                while (nums[right] > pivot)
-                    right--;
-
-                if (left >= right)
-                    return right;
-
-                if (nums[left] == nums[right])
-                    left++;
-                else
-                    Swap(nums, left, right);
+                if (nums[j] <= pivot)
+                {
+                    Swap(nums, i, j);
+                    i++;
+                }
             }
+
+            Swap(nums, i, right);
+
+            return i;
         }
 
         private static void Swap(int[] nums, int left, int right)
