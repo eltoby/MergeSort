@@ -42,9 +42,9 @@
                     return right;
 
                 if (nums[left] == nums[right])
-                    return right;
-
-                Swap(nums, left, right);
+                    left++;
+                else
+                    Swap(nums, left, right);
             }
         }
 
